@@ -1,6 +1,7 @@
 package com.revature.model;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 public class Request implements Serializable {
 	private int requestId;
@@ -10,8 +11,8 @@ public class Request implements Serializable {
 	private String status;
 	private String imageUrl;
 	private String purpose;
-	private String requestDate;
-	private String reviewDate;
+	private Timestamp requestDate;
+	private Timestamp reviewDate;
 	
 	public Request(double requestAmount, int requesterId, int reviewerId, String imageUrl, String purpose) {
 		super();
@@ -78,19 +79,19 @@ public class Request implements Serializable {
 		this.purpose = purpose;
 	}
 
-	public String getRequestDate() {
+	public Timestamp getRequestDate() {
 		return requestDate;
 	}
 
-	public void setRequestDate(String requestDate) {
+	public void setRequestDate(Timestamp requestDate) {
 		this.requestDate = requestDate;
 	}
 
-	public String getReviewDate() {
+	public Timestamp getReviewDate() {
 		return reviewDate;
 	}
 
-	public void setReviewDate(String reviewDate) {
+	public void setReviewDate(Timestamp reviewDate) {
 		this.reviewDate = reviewDate;
 	}
 

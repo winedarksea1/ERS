@@ -6,9 +6,9 @@ import com.revature.model.User;
 
 public interface UserDao {
 	
-	public boolean createUser();
+	public boolean createUser(User user);
 	public List<User> getUsers();
-	public User getUser();
-	public boolean updateUser();
+	public User getUser(String email) throws Exception;
+	public boolean updateUser(String email);
 
 }

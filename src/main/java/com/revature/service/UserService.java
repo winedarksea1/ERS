@@ -20,7 +20,21 @@ public class UserService {
 		return instance;
 	}
 	
+	public boolean createUser(User user) {
+		return userDao.createUser(user);
+	}
+	
 	public List<User> getUsers() {
 		return userDao.getUsers();
+	}
+	
+	public User getUser(String email) {
+		try {
+			return userDao.getUser(email);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+			
 	}
 }

@@ -19,7 +19,27 @@ public class User implements Serializable {
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
+	
+	public User(String email, String username, String password, String firstName, String lastName) {
+		super();
+		this.email = email;
+		this.username = username;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
 
+	public User(int id, String email, String username, String password, int isManager, String firstName, String lastName) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.username = username;
+		this.password = password;
+		this.isManager = isManager == 0 ? false : true;
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
+	
 	public int getId() {
 		return id;
 	}

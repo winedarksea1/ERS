@@ -24,8 +24,22 @@ public class UserDaoImpl implements UserDao {
 	}
 	
 	@Override
-	public boolean createUser() {
-		// TODO Auto-generated method stub
+	public boolean createUser(User user) {
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			PreparedStatement stmt = conn.prepareStatement("INSERT INTO ers_user VALUES (null, ?, ?, ?, ?, ?, ?)");
+			stmt.setString(1, user.getEmail());
+			stmt.setString(2, user.getUsername());
+			stmt.setString(3, user.getPassword());
+			stmt.setInt(4, 0);
+			stmt.setString(5, user.getFirstName());
+			stmt.setString(6, user.getLastName());
+			
+			return stmt.executeUpdate() > 0;
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			System.err.println(e.getSQLState());
+			System.err.println(e.getErrorCode());
+		}
 		return false;
 	}
 
@@ -54,14 +68,35 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public User getUser() {
-		// TODO Auto-generated method stub
+	public User getUser(String email) throws Exception {
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			PreparedStatement stmt = conn.prepareStatement("SELECT * FROM ers_user WHERE email=?");
+			stmt.setString(1, email);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				User user = new User(
+						rs.getInt(1),
+						rs.getString(2),
+						rs.getString(3),
+						rs.getString(4),
+						rs.getInt(5),
+						rs.getString(6),
+						rs.getString(7)
+						);	
+				return user;
+			} else {
+				throw new Exception("User Does Not Exist");
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			System.err.println(e.getSQLState());
+			System.err.println(e.getErrorCode());
+		}
 		return null;
 	}
 
 	@Override
-	public boolean updateUser() {
-		// TODO Auto-generated method stub
+	public boolean updateUser(String email) {
 		return false;
 	}	
 
