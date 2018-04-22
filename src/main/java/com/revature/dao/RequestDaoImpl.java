@@ -1,8 +1,14 @@
 package com.revature.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.model.Request;
+import com.revature.util.ConnectionUtil;
 
 public class RequestDaoImpl implements RequestDao {
 	
@@ -31,7 +37,30 @@ public class RequestDaoImpl implements RequestDao {
 
 	@Override
 	public List<Request> getAllRequests() {
-		// TODO Auto-generated method stub
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			List<Request> requests = new ArrayList<>();
+			PreparedStatement stmt = conn.prepareStatement("SELECT * FROM request");
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				requests.add(new Request(
+						rs.getInt(1), // id
+						rs.getDouble(2), // requestAmount
+						rs.getInt(3), // requesterId
+						rs.getInt(4), // reviewerId
+						rs.getInt(5), // status int
+						rs.getString(6), 
+						rs.getTimestamp(7),
+						rs.getTimestamp(8),
+						rs.getString(9),
+						rs.getBlob(10)
+						));
+			}
+			return requests;
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			System.err.println(e.getSQLState());
+			System.err.println(e.getErrorCode());
+		}
 		return null;
 	}
 

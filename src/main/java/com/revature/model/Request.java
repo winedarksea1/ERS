@@ -1,6 +1,7 @@
 package com.revature.model;
 
 import java.io.Serializable;
+import java.sql.Blob;
 import java.sql.Timestamp;
 
 public class Request implements Serializable {
@@ -13,14 +14,30 @@ public class Request implements Serializable {
 	private String purpose;
 	private Timestamp requestDate;
 	private Timestamp reviewDate;
+	private Blob image;
 	
-	public Request(double requestAmount, int requesterId, int reviewerId, String imageUrl, String purpose) {
+	public Request(int id, double requestAmount, int requesterId, int reviewerId, int status, String purpose, Timestamp requestDate, Timestamp reviewDate, String imageUrl, Blob image) {
 		super();
+		String theStatus;
+		
+		if (status == 0) {
+			theStatus = "Pending";
+		} else if (status == 1) {
+			theStatus = "Approved";
+		} else {
+			theStatus = "Denied";
+		}
+		
+		this.requestId = id;
 		this.requestAmount = requestAmount;
 		this.requesterId = requesterId;
 		this.reviewerId = reviewerId;
-		this.imageUrl = imageUrl;
+		this.status = theStatus;
 		this.purpose = purpose;
+		this.requestDate = requestDate;
+		this.reviewDate = reviewDate;
+		this.imageUrl = imageUrl;
+		this.image = image;
 	}
 
 	public int getRequestId() {
@@ -162,8 +179,10 @@ public class Request implements Serializable {
 	public String toString() {
 		return "Request [requestId=" + requestId + ", requestAmount=" + requestAmount + ", requesterId=" + requesterId
 				+ ", reviewerId=" + reviewerId + ", status=" + status + ", imageUrl=" + imageUrl + ", purpose="
-				+ purpose + ", requestDate=" + requestDate + ", reviewDate=" + reviewDate + "]";
+				+ purpose + ", requestDate=" + requestDate + ", reviewDate=" + reviewDate + ", image=" + image + "]";
 	}
+
+
 	
 	
 }
