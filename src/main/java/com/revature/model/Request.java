@@ -39,6 +39,26 @@ public class Request implements Serializable {
 		this.imageUrl = imageUrl;
 		this.image = image;
 	}
+	
+	public Request(double requestAmount, int requesterId, int reviewerId, int status, String purpose) {
+		super();
+		String theStatus;
+		
+		if (status == 0) {
+			theStatus = "Pending";
+		} else if (status == 1) {
+			theStatus = "Approved";
+		} else {
+			theStatus = "Denied";
+		}
+		
+		this.requestAmount = requestAmount;
+		this.requesterId = requesterId;
+		this.reviewerId = reviewerId;
+		this.status = theStatus;
+		this.purpose = purpose;
+	}
+
 
 	public int getRequestId() {
 		return requestId;
@@ -112,6 +132,14 @@ public class Request implements Serializable {
 		this.reviewDate = reviewDate;
 	}
 
+	public Blob getImage() {
+		return image;
+	}
+
+	public void setImage(Blob image) {
+		this.image = image;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -129,6 +157,7 @@ public class Request implements Serializable {
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -174,7 +203,8 @@ public class Request implements Serializable {
 			return false;
 		return true;
 	}
-
+	
+	
 	@Override
 	public String toString() {
 		return "Request [requestId=" + requestId + ", requestAmount=" + requestAmount + ", requesterId=" + requesterId
