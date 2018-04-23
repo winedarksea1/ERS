@@ -43,4 +43,28 @@ public class RequestService {
 	public List<Request> getAllPendingRequests() {
 		return requestDao.getAllPendingRequests();
 	}
+	
+	public List<Request> getAllResolvedRequests() {
+		return requestDao.getAllResolvedRequests();
+	}
+	
+	public List<Request> getAllRequestsForEmployee(int id) {
+		return requestDao.getAllRequestsForEmployee(id);
+	}
+	
+	public List<Request> getAllPendingRequestsForEmployee(int id) {
+		return requestDao.getAllPendingRequestsForEmployee(id);
+	}
+	
+	public List<Request> getAllResolvedRequestsForEmployee(int id) {
+		return requestDao.getAllResolvedRequestsForEmployee(id);
+	}
+	
+	public boolean approveRequest(int id) {
+		return requestDao.approveRequest(id);
+	}
+	
+	public boolean denyRequest(int id) {
+		return requestDao.denyRequest(id);
+	}
 }

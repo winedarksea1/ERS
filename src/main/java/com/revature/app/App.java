@@ -26,10 +26,10 @@ public class App {
 //		User user = us.getUser("tony_stark@gmail.com");
 //		System.out.println("User: " + user);
 		
-		List<Request> requests = rs.getAllPendingRequests();
-		for (Request request : requests) {
-			System.out.println(request);
-		}
+//		List<Request> requests = rs.getAllResolvedRequestsForEmployee(3);
+//		for (Request request : requests) {
+//			System.out.println(request);
+//		}
 		
 //		Request request = new Request(
 //				150.90,
@@ -41,6 +41,8 @@ public class App {
 //		System.out.println("Request was successfully submitted: " + rs.submitRequest(request));
 //		Request request = rs.viewRequest(5);
 //		System.out.println("Request: " + request);
+		
+		System.out.println("Request was successfully denied: " + rs.denyRequest(3));
 		
 	}
 

@@ -11,9 +11,11 @@ public interface RequestDao {
 	public List<Request> getAllRequests();
 	public List<Request> getAllPendingRequests();
 	public List<Request> getAllResolvedRequests();
-	public Request getSingleRequestForEmployee(String email);
-	public List<Request> getAllRequestsForEmployee(String email);
-	public List<Request> getAllPendingRequestsForEmployee(String email);
-	public List<Request> getAllResolvedRequestsForEmployee();
+	public Request getSingleRequestForEmployee(int id);
+	public List<Request> getAllRequestsForEmployee(int id);
+	public List<Request> getAllPendingRequestsForEmployee(int id);
+	public List<Request> getAllResolvedRequestsForEmployee(int id);
 	public String getRequestImage();
+	public boolean approveRequest(int id);
+	public boolean denyRequest(int id);
 }
