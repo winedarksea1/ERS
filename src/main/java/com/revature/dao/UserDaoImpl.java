@@ -94,6 +94,34 @@ public class UserDaoImpl implements UserDao {
 		}
 		return null;
 	}
+	
+	@Override
+	public User getUser(int id) throws Exception {
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			PreparedStatement stmt = conn.prepareStatement("SELECT * FROM ers_user WHERE user_id=?");
+			stmt.setInt(1, id);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				User user = new User(
+						rs.getInt(1),
+						rs.getString(2),
+						rs.getString(3),
+						rs.getString(4),
+						rs.getInt(5),
+						rs.getString(6),
+						rs.getString(7)
+						);	
+				return user;
+			} else {
+				throw new Exception("User Does Not Exist");
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			System.err.println(e.getSQLState());
+			System.err.println(e.getErrorCode());
+		}
+		return null;
+	}
 
 	@Override
 	public boolean updateUser(String email) {

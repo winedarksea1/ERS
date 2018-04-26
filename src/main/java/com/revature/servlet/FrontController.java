@@ -39,9 +39,12 @@ public class FrontController extends HttpServlet {
 		ObjectMapper mapper = new ObjectMapper();
 		PrintWriter pw = response.getWriter();
 		System.out.println("Hello From GET");
+		System.out.println("slice " + request.getRequestURI().substring(0, 34));
 		System.out.println("URL: " + request.getRequestURI());
-		if (uri.substring(0, 37).equals("//ers-project/FrontController/request")) {
+		if (uri.contains("//ers-project/FrontController/request")) {
 			mapper.writeValue(pw, RequestHelper.process(request));
+		} else if (uri.contains("//ers-project/FrontController/user")) {
+			mapper.writeValue(pw, RequestHelper.processUserRequest(request));
 		}
 			
 

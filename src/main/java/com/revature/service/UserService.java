@@ -37,4 +37,14 @@ public class UserService {
 		}
 			
 	}
+	
+	public User getUser(int id) {
+		try {
+			return userDao.getUser(id);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+			
+	}
 }

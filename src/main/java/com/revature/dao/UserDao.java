@@ -9,6 +9,7 @@ public interface UserDao {
 	public boolean createUser(User user);
 	public List<User> getUsers();
 	public User getUser(String email) throws Exception;
+	public User getUser(int id) throws Exception;
 	public boolean updateUser(String email);
 
 }

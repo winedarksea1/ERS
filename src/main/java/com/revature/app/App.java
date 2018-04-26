@@ -15,10 +15,10 @@ public class App {
 		UserService us = UserService.getInstance();
 		RequestService rs = RequestService.getInstance();
 		
-		List<User> users = us.getUsers();
-		for (User user : users) {
-			System.out.println(user);
-		}
+//		List<User> users = us.getUsers();
+//		for (User user : users) {
+//			System.out.println(user);
+//		}
 //		
 //		Timestamp now = new Timestamp(System.currentTimeMillis());
 //		System.out.println(now);
@@ -43,7 +43,8 @@ public class App {
 //		System.out.println("Request: " + request);
 		
 //		System.out.println("Request was successfully denied: " + rs.denyRequest(3));
-		
+		User user = us.getUser(2);
+		System.out.println("User: " + user);
 	}
 
 }
