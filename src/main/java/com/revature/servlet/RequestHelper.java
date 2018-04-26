@@ -11,19 +11,22 @@ import com.revature.model.Request;
 public class RequestHelper {
 	public static RequestService rs = RequestService.getInstance();
 	
-	public static String process(HttpServletRequest req) {
+	public static List<Request> process(HttpServletRequest req) {
 		
 		String uri = req.getRequestURI();
 		
-		
-		if (uri.equals("//ers-project/FrontController/getAllRequests.ajax")) {
-			getAllRequests();
-			return "getAllRequests called!";
+		System.out.println(uri.substring(0, 37));
+		System.out.println(uri.indexOf("/getAllRequests"));
+		if (uri.equals("//ers-project/FrontController/request/getAllRequests.ajax")) {
+			return getAllRequests();
+		} else if (uri.equals("//ers-project/FrontController/request/getAllPendingRequests.ajax")) {
+			return getAllPendingRequests();
+		} else if (uri.equals("//ers-project/FrontController/request/getAllResolvedRequests.ajax")) {
+			return getAllResolvedRequests();
 		}
 		
-//		getAllRequests();
 
-		return req.getRequestURI();
+		return null;
 	}
 	
 	public static List<Request> getAllRequests() {
@@ -31,4 +34,16 @@ public class RequestHelper {
 		System.out.println(requests);
 		return requests;
 	}
+	
+	public static List<Request> getAllPendingRequests() {
+		List<Request> requests = rs.getAllPendingRequests();
+		System.out.println(requests);
+		return requests;
+	}
+	
+	public static List<Request> getAllResolvedRequests() {
+		List<Request> requests = rs.getAllResolvedRequests();
+		System.out.println(requests);
+		return requests;
+	};
 }
