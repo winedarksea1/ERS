@@ -124,6 +124,38 @@ public class FrontController extends HttpServlet {
 							+ "</body></html>");
 					pw.flush();	
 				}
+		} else if (uri.contains("//ers-project/FrontController/closeRequest")) {
+			HashMap hm = RequestHelper.processCloseRequest(request, response);
+			String status = (String) hm.get("status");
+			int reviewerId = (int) hm.get("reviewerId");
+			if (status.equals("approved")) {
+				pw.write("<html>" +
+						"<body>" +
+						"<h1>Request successfully approved!!!</h1>" +
+						"<a href='file:///Users/andrewmcgovern/Desktop/front_end_ERS/html/request-index-view-manager.html?id=" +
+						reviewerId + 
+						"'>Return to Request Page</a>"
+						+ "</body></html>");
+				pw.flush();	
+			} else if (status.equals("denied")) {
+				pw.write("<html>" +
+						"<body>" +
+						"<h1>Request successfully denied!!!</h1>" +
+						"<a href='file:///Users/andrewmcgovern/Desktop/front_end_ERS/html/request-index-view-manager.html?id=" +
+						reviewerId + 
+						"'>Return to Request Page</a>"
+						+ "</body></html>");
+				pw.flush();	
+			} else {
+				pw.write("<html>" +
+						"<body>" +
+						"<h1>Request close was not successful</h1>" +
+						"<a href='file:///Users/andrewmcgovern/Desktop/front_end_ERS/html/request-index-view-manager.html?id=" +
+						reviewerId + 
+						"'>Return to Request Page</a>"
+						+ "</body></html>");
+				pw.flush();
+			}
 		}
 	}
 

@@ -1,11 +1,13 @@
 package com.revature.servlet;
 
 import java.io.BufferedReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.revature.service.RequestService;
 import com.revature.service.UserService;
@@ -96,6 +98,37 @@ public class RequestHelper {
 		HashMap hm = new HashMap();
 		hm.put("status", status);
 		hm.put("id", user.getId());
+		return hm;
+	}
+	
+	public static HashMap processCloseRequest(HttpServletRequest req, HttpServletResponse res) {
+		String requestIdString = req.getParameter("requestId");
+		int requestId = Integer.parseInt(requestIdString);
+		int reviewerId = Integer.parseInt(req.getParameter("reviewerId"));
+		String approvedStatus = req.getParameter("approved");
+		String deniedStatus = req.getParameter("denied");
+		HashMap hm = new HashMap();
+		hm.put("requestId", requestId);
+		hm.put("reviewerId", reviewerId);
+		
+		System.out.println("Request Id: " + requestId);
+		System.out.println("Approved Status: " + approvedStatus);
+		System.out.println("Denied Status: " + deniedStatus);
+		
+		if (approvedStatus != null) {
+			if (approvedStatus.equals("on")) {
+				rs.approveRequest(requestId);
+				hm.put("status", "approved");
+			
+		}
+		} else if (deniedStatus != null) {
+			if (deniedStatus.equals("on")) {
+				rs.denyRequest(requestId);
+				hm.put("status", "denied");
+				
+			}
+		}
+
 		return hm;
 	}
 	
