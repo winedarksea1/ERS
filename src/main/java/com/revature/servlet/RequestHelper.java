@@ -1,5 +1,6 @@
 package com.revature.servlet;
 
+import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,13 +27,17 @@ public class RequestHelper {
 			return getAllPendingRequests();
 		} else if (uri.equals("//ers-project/FrontController/request/getAllResolvedRequests.ajax")) {
 			return getAllResolvedRequests();
+		} else if (uri.equals("//ers-project/FrontController/request.ajax")) {
+			int id = Integer.parseInt(req.getParameter("request-id"));
+			Request request = rs.viewRequest(id);
+			List<Request> requests = new ArrayList<>();
+			requests.add(request);
+			return requests;
 		}
-		
-
 		return null;
 	}
 	
-	public static List<User> processUserRequest(HttpServletRequest req) {
+	public static List<User> processUserGetRequest(HttpServletRequest req) {
 		String uri = req.getRequestURI();
 		if (uri.equals("//ers-project/FrontController/user/getUsers.ajax")) {
 			return getUsers();
@@ -45,6 +50,32 @@ public class RequestHelper {
 		}
 		System.out.println("Parameter: " + req.getParameter("user-id"));
 		return null;
+	}
+	
+	public static boolean processNewUserPostRequest(HttpServletRequest req) {
+		System.out.println("Request");
+		System.out.println(req);
+		User user = new User(
+				req.getParameter("email"),
+				req.getParameter("userName"),
+				req.getParameter("password1"),
+				req.getParameter("firstName"),
+				req.getParameter("lastName")
+				);
+//		
+		return us.createUser(user);
+//		ArrayList al = new ArrayList();
+//		 StringBuffer jb = new StringBuffer();
+//		  String line = null;
+//		  try {
+//		    BufferedReader reader = req.getReader();
+//		    while ((line = reader.readLine()) != null)
+//		      jb.append(line);
+//		    al.add(line);
+//		  } catch (Exception e) { /*report an error*/ }
+//		  System.out.println(line);
+//		  System.out.println(al);
+//		return false;
 	}
 	
 	public static List<Request> getAllRequests() {

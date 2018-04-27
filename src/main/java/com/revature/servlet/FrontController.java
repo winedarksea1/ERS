@@ -44,7 +44,7 @@ public class FrontController extends HttpServlet {
 		if (uri.contains("//ers-project/FrontController/request")) {
 			mapper.writeValue(pw, RequestHelper.process(request));
 		} else if (uri.contains("//ers-project/FrontController/user")) {
-			mapper.writeValue(pw, RequestHelper.processUserRequest(request));
+			mapper.writeValue(pw, RequestHelper.processUserGetRequest(request));
 		}
 			
 
@@ -59,7 +59,19 @@ public class FrontController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		String uri = request.getRequestURI();
+		PrintWriter pw = response.getWriter();
+		if (uri.contains("//ers-project/FrontController/user")) {
+//			System.out.println("Was user successfully created: " + RequestHelper.processNewUserPostRequest(request));
+			if (RequestHelper.processNewUserPostRequest(request)) {
+				pw.write("<html>" +
+						"<body>" +
+						"<h1>Successfully</h1>" +
+						"<a href='file:///Users/andrewmcgovern/Desktop/front_end_ERS/html/request-index-view.html'>Dashboard</a>"
+						+ "</body></html>");
+				pw.flush();
+			}
+		}
 	}
 
 }
