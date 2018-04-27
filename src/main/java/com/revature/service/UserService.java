@@ -1,6 +1,7 @@
 package com.revature.service;
 
 import java.util.List;
+import org.apache.log4j.Logger;
 
 import com.revature.dao.UserDaoImpl;
 import com.revature.model.User;
@@ -8,6 +9,8 @@ import com.revature.model.User;
 public class UserService {
 	private static UserService instance;
 	private UserDaoImpl userDao;
+	private Logger log = Logger.getLogger(UserService.class);
+	
 	
 	private UserService() {
 		this.userDao = UserDaoImpl.getInstance();
@@ -21,7 +24,14 @@ public class UserService {
 	}
 	
 	public boolean createUser(User user) {
-		return userDao.createUser(user);
+		try {
+			userDao.createUser(user);
+			log.info("User " + user.getEmail() + " successfully created");
+			return true;
+		} catch (Exception e) {
+			log.info("Exception Caught in User Service: " + e.getMessage());
+			return false;
+		}
 	}
 	
 	public List<User> getUsers() {

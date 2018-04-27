@@ -28,6 +28,9 @@ public class RequestHelper {
 			return getAllPendingRequests();
 		} else if (uri.equals("//ers-project/FrontController/request/getAllResolvedRequests.ajax")) {
 			return getAllResolvedRequests();
+		} else if (uri.equals("//ers-project/FrontController/request/getAllPendingRequestsForEmployee.ajax")) {
+			int id = Integer.parseInt(req.getParameter("user-id"));
+			return getAllPendingRequestsForEmployee(id);
 		} else if (uri.equals("//ers-project/FrontController/request.ajax")) {
 			int id = Integer.parseInt(req.getParameter("request-id"));
 			Request request = rs.viewRequest(id);
@@ -114,6 +117,10 @@ public class RequestHelper {
 		System.out.println(requests);
 		return requests;
 	};
+	
+	public static List<Request> getAllPendingRequestsForEmployee(int id) {
+		return rs.getAllPendingRequestsForEmployee(id);
+	}
 	
 	public static List<User> getUsers() {
 		List<User> users = us.getUsers();
