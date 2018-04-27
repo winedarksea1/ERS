@@ -59,7 +59,6 @@ public class Request implements Serializable {
 		this.purpose = purpose;
 	}
 
-
 	public int getRequestId() {
 		return requestId;
 	}

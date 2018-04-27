@@ -46,8 +46,7 @@ public class FrontController extends HttpServlet {
 			mapper.writeValue(pw, RequestHelper.process(request));
 		} else if (uri.contains("//ers-project/FrontController/user")) {
 			mapper.writeValue(pw, RequestHelper.processUserGetRequest(request));
-		}
-			
+		} 
 
 		pw.flush();
 		
@@ -102,7 +101,30 @@ public class FrontController extends HttpServlet {
 					pw.flush();
 				}
 			}
-		} 
+		} else if (uri.contains("//ers-project/FrontController/postNewRequest")) {
+			HashMap hm = RequestHelper.processPostNewRequest(request);
+			boolean status = (boolean) hm.get("status");
+			int id = (int) hm.get("id");
+			if (!status) {
+				pw.write("<html>" +
+						"<body>" +
+						"<h1>Request submission was not successful</h1>" +
+						"<a href='file:///Users/andrewmcgovern/Desktop/front_end_ERS/html/request-form.html?id=" +
+						id + 
+						"'>Return to Request Page</a>"
+						+ "</body></html>");
+				pw.flush();	
+				} else {
+					pw.write("<html>" +
+							"<body>" +
+							"<h1>Request submission successful!!!</h1>" +
+							"<a href='file:///Users/andrewmcgovern/Desktop/front_end_ERS/html/employee-homepage.html?id=" +
+							id + 
+							"'>Return to Request Page</a>"
+							+ "</body></html>");
+					pw.flush();	
+				}
+		}
 	}
 
 }

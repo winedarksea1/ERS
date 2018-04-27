@@ -82,6 +82,23 @@ public class RequestHelper {
 //		return false;
 	}
 	
+	public static HashMap processPostNewRequest (HttpServletRequest req) {
+		User user = us.getUser(req.getParameter("email"));
+		double requestAmount = Double.parseDouble(req.getParameter("requestAmount"));
+		Request request = new Request(
+				requestAmount,
+				user.getId(),
+				1,
+				0,
+				req.getParameter("purpose")
+				);
+		boolean status = rs.submitRequest(request);
+		HashMap hm = new HashMap();
+		hm.put("status", status);
+		hm.put("id", user.getId());
+		return hm;
+	}
+	
 	public static HashMap processLogin(HttpServletRequest req) {
 		User user = us.getUser(req.getParameter("email"));
 		if (!req.getParameter("password").equals(user.getPassword())) {
