@@ -2,6 +2,7 @@ package com.revature.servlet;
 
 import java.io.BufferedReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -76,6 +77,24 @@ public class RequestHelper {
 //		  System.out.println(line);
 //		  System.out.println(al);
 //		return false;
+	}
+	
+	public static HashMap processLogin(HttpServletRequest req) {
+		User user = us.getUser(req.getParameter("email"));
+		if (!req.getParameter("password").equals(user.getPassword())) {
+			return null;
+		} else {
+			HashMap hm = new HashMap();
+			if (user.isManager()) {
+				hm.put("status", 1);
+				hm.put("id", user.getId());
+				return hm;
+			} else {
+				hm.put("status", 2);
+				hm.put("id", user.getId());
+				return hm;
+			}
+		}
 	}
 	
 	public static List<Request> getAllRequests() {

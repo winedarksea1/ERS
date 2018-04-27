@@ -2,6 +2,7 @@ package com.revature.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletConfig;
@@ -66,12 +67,42 @@ public class FrontController extends HttpServlet {
 			if (RequestHelper.processNewUserPostRequest(request)) {
 				pw.write("<html>" +
 						"<body>" +
-						"<h1>Successfully</h1>" +
+						"<h1>Successfully Logged In</h1>" +
 						"<a href='file:///Users/andrewmcgovern/Desktop/front_end_ERS/html/request-index-view.html'>Dashboard</a>"
 						+ "</body></html>");
 				pw.flush();
 			}
-		}
+		} else if (uri.contains("//ers-project/FrontController/login")) {
+			if (RequestHelper.processLogin(request) == null) {
+				pw.write("<html><body>" + 
+							"<h1>Password was invalid</h1>" + 
+							"<a href='file:///Users/andrewmcgovern/Desktop/front_end_ERS/html/sign-in.html'>Back to Login Page</a>" +
+							"</body></html>");
+				pw.flush();
+			} else {
+				HashMap hm = RequestHelper.processLogin(request);
+				int status = (int) hm.get("status");
+				int intId = (int) hm.get("id");
+				String id = Integer.toString(intId);
+				if (status == 1) {
+					pw.write("<html><body>" + 
+							"<h1>Login Successful</h1>" + 
+							"<a href='file:///Users/andrewmcgovern/Desktop/front_end_ERS/html/request-index-view-manager.html?id=" +
+							id + "'>"
+							+ "Go to Manager Dashboard</a>" +
+							"</body></html>");
+					pw.flush();
+				} else {
+					pw.write("<html><body>" + 
+							"<h1>Login Successful</h1>" + 
+							"<a href='file:///Users/andrewmcgovern/Desktop/front_end_ERS/html/employee-homepage.html?id=" +
+							id + "'>"
+							+ "Go to Employee Dashboard</a>" +
+							"</body></html>");
+					pw.flush();
+				}
+			}
+		} 
 	}
 
 }
